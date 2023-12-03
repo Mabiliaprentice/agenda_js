@@ -1,6 +1,5 @@
 const form = document.getElementById('agenda-form');
-const nome = []
-const tele = []
+const contatos = [];
 let linhas = '';
 
 
@@ -8,35 +7,33 @@ form.addEventListener('submit', function (e) {
     e.preventDefault();
 
     adicionaLinha();
-    atualizaTabela();
-    adicionaNome();
-    adicionaTel();
+    
 });
 
 function adicionaLinha() {
-    const inputNome = document.getElementById('insira-nome');
-    const inputTelefone = document.getElementById('insira-tel');
+    const inputNome = document.getElementById('insira-nome').value;
+    const inputSobrenome = document.getElementById('insira-sobrenome').value;
+    const inputTelefone = document.getElementById('insira-tel').value;
+    
 
-    if(nome.includes(inputNome.value)){
-        window.alert(`O Nome ${inputNome.value} já consta em nossa base de dados.`);
+    if(contatos.includes(inputNome) && contatos.includes (inputTelefone)){
+        window.alert(`O Nome ${inputNome} já consta em nossa base de dados.`);
+        window.alert(`O Telefone ${inputTelefone} já consta em nossa base de dados.`);
     }else {
-        nome.push(inputNome.value);
-        tele.push(inputTelefone.value);
+        contatos.push(inputNome, inputTelefone)
     
         let linha = '<tr>';
-        linha += `<td>${inputNome.value}</td>`;
-        linha += `<td>${inputTelefone.value}</td>`;
+        linha += `<td>${inputNome}</td>`;
+        linha += `<td>${inputSobrenome}</td>`;
+        linha += `<td>${inputTelefone}</td>`;
         linha += '</tr>';
         linhas += linha;
     }
 
+    //function atualizaTabela() {
+        const tabela = document.querySelector('tbody');
+        tabela.innerHTML = linhas;
+    //}
     
-    
-    inputNome.value = '';
-    inputTelefone.value = '';
 }
 
-function atualizaTabela() {
-    const tabela = document.querySelector('tbody');
-    tabela.innerHTML = linhas;
-}
